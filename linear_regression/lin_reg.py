@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
 
-class indexLinReg:
+class IndexLinReg:
     def __init__(self, ticker, period='3mo', interval='1d'):
         # Graph Plot Settings
         sns.set_theme()
@@ -61,6 +61,7 @@ class indexLinReg:
         print(f"Buy {self.name} at : {pred - 2 * self.data['dev'].std():.1f}\n")
 
 if __name__ == "__main__":
-    linreg = indexLinReg("^FTSE")
+    linreg = IndexLinReg("VUKE.L", period='6mo')
+    # linreg = IndexLinReg("^GSPC", period='6mo')
     linreg.tomorrow()
     linreg.show()
