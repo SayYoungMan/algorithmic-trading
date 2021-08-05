@@ -68,50 +68,51 @@ def generate_nasdaq():
     buy.to_csv(f'./results/{today} NASDAQ100 Buy List.csv')
     sell.to_csv(f'./results/{today} NASDAQ100 Sell List.csv')
 
-if __name__ == "__main__":
-    # # Get Path of the ticker dataset
-    # root_path = Path(__file__).parent.parent
-    # snp_path = root_path / 'dataset' / 'snp500_constituents.csv'
+def generate_snp():
+    # Get Path of the ticker dataset
+    root_path = Path(__file__).parent.parent
+    snp_path = root_path / 'dataset' / 'snp500_constituents.csv'
 
-    # # Read Ticker dataset
-    # snp_tickers = pd.read_csv(snp_path)['Symbol']
-    # nasdaq_tickers = pd.read_csv(nasdaq_path)['Symbol']
+    # Read Ticker dataset
+    snp_tickers = pd.read_csv(snp_path)['Symbol']
     
-    # # Initialise arrays to store buy, sell positions
-    # buy = []
-    # sell = []
+    # Initialise arrays to store buy, sell positions
+    buy = []
+    sell = []
 
-    # # Loop over all the tickers
-    # for i, v in snp_tickers.iteritems():
-    #     # Get the bollinger bands for each ticker
-    #     try:
-    #         up, low, last = bollinger(v, 25)
-    #     # Catch the case where the ticker is nolonger available
-    #     except IndexError:
-    #         continue
+    # Loop over all the tickers
+    for i, v in snp_tickers.iteritems():
+        # Get the bollinger bands for each ticker
+        try:
+            up, low, last = bollinger(v, 25)
+        # Catch the case where the ticker is nolonger available
+        except IndexError:
+            continue
         
-    #     # Append the tuple of data to sell or buy if the last price was out of Bollinger Band
-    #     if last >= up:
-    #         over = ((last - up) / up) * 100
-    #         sell.append((v, last, up, over))
+        # Append the tuple of data to sell or buy if the last price was out of Bollinger Band
+        if last >= up:
+            over = ((last - up) / up) * 100
+            sell.append((v, last, up, over))
         
-    #     elif last <= low:
-    #         under = ((low - last) / low) * 100
-    #         buy.append((v, last, low, under))
+        elif last <= low:
+            under = ((low - last) / low) * 100
+            buy.append((v, last, low, under))
         
-    # # Transform buy and sell into dataframes
-    # buy = pd.DataFrame(buy, columns=['Ticker', 'Last Price', 'Lower Bollinger Band', 'Percentage'])
-    # sell = pd.DataFrame(sell, columns=['Ticker', 'Last Price', 'Upper Bollinger Band', 'Percentage'])
+    # Transform buy and sell into dataframes
+    buy = pd.DataFrame(buy, columns=['Ticker', 'Last Price', 'Lower Bollinger Band', 'Percentage'])
+    sell = pd.DataFrame(sell, columns=['Ticker', 'Last Price', 'Upper Bollinger Band', 'Percentage'])
 
-    # # Sort values by the percentage
-    # buy = buy.sort_values('Percentage', ascending=False)
-    # sell = sell.sort_values('Percentage', ascending=False)
+    # Sort values by the percentage
+    buy = buy.sort_values('Percentage', ascending=False)
+    sell = sell.sort_values('Percentage', ascending=False)
 
-    # # Today's date for file naming
-    # today = datetime.datetime.today().strftime('%Y-%m-%d')
+    # Today's date for file naming
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
 
-    # # Save the dataframe into csv
-    # buy.to_csv(f'./results/{today} S&P500 Buy List.csv')
-    # sell.to_csv(f'./results/{today} S&P500 Sell List.csv')
+    # Save the dataframe into csv
+    buy.to_csv(f'./results/{today} S&P500 Buy List.csv')
+    sell.to_csv(f'./results/{today} S&P500 Sell List.csv')
 
+if __name__ == "__main__":
     generate_nasdaq()
+    generate_snp()

@@ -1,0 +1,37 @@
+{
+  "DowJones": {
+    "tickers": [
+      "MMM",
+      "AXP",
+      "AAPL",
+      "BA",
+      "CAT",
+      "CVX",
+      "CSCO",
+      "KO",
+      "DOW",
+      "GS",
+      "HD",
+      "HON",
+      "IBM",
+      "INTC",
+      "JNJ",
+      "JPM",
+      "MCD",
+      "MRK",
+      "MSFT",
+      "NKE",
+      "PFE",
+      "PG",
+      "CRM",
+      "TRV",
+      "UNH",
+      "VZ",
+      "V",
+      "WMT",
+      "WBA",
+      "DIS"
+    ],
+    "Date": "2021-08-05"
+  }
+}
