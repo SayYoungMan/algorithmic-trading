@@ -87,8 +87,8 @@ def find_best_strategy(ticker: str, drop: List[float], up: List[float]):
 
     max_profit = 0
 
-    for drop_thresh in np.arange(drop[0], drop[1], 0.0025):
-        for up_thresh in np.arange(up[0], up[1], 0.0025):
+    for drop_thresh in np.arange(drop[0], drop[1], 0.001):
+        for up_thresh in np.arange(up[0], up[1], 0.001):
             drop_thresh = round(drop_thresh, 4)
             up_thresh = round(up_thresh, 4)
 
@@ -108,12 +108,12 @@ def DJ_strategy():
     dow_ticker = json.loads(open('./swing_trading/tickers.json').read())["DowJones"]['tickers']
 
     for tick in dow_ticker:
-        best, profit = find_best_strategy(tick, [0.03, 0.05], [0.01, 0.03])
+        best, profit = find_best_strategy(tick, [0.02, 0.05], [0.01, 0.03])
         df.append({
             "Name": tick,
             "Drop": best[0],
             "Up": best[1],
-            "Adj Profit": profit
+            "Profit": profit
         })
 
     print(df)
@@ -138,10 +138,13 @@ def get_price_today(df_path: str) -> None:
     return
 
 if __name__ == "__main__":
-    # To make a 
+    # To make a strategy File
     # DJ_strategy()
+
+    # To get the prices
     get_price_today('./swing_trading/DowJonesResult.csv')
 
+    # =================== Error resolving test cases ==================
     # The Adj Profit is NaN for AAPL
     # find_best_strategy('AAPL', [0.03, 0.05], [0.01, 0.03])
 
